@@ -75,3 +75,11 @@ DNSHE 的 `.us.ci` 免费名称与 Cloudflare 自定义域名路线已有实际�
 ## 许可证
 
 [MIT](LICENSE) © 2026 huacao59109
+
+## 打赏支持
+
+如果这个项目对你有帮助，欢迎自愿打赏。
+
+| 微信 | 支付宝 |
+| :---: | :---: |
+| <img src="assets/donate/wechat.png" width="180" alt="微信收款码"> | <img src="assets/donate/alipay.png" width="180" alt="支付宝收款码"> |
