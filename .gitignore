@@ -1,0 +1,14 @@
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
+.env
+.env.*
+.dev.vars
+.dev.vars.*
+.wrangler/
+.private-backups/
+*.sqlite
+*.sqlite-*
+*.log
+node_modules/
