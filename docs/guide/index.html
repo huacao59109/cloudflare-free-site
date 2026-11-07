@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>用 AI 和 Cloudflare 免费方案搭建轻量网站 — Cloudflare Free Site</title>
+  <meta name="description" content="Cloudflare Free Site 使用指南：从读取 SKILL.md、选择静态资源与 API，到免费域名、Workers、D1、HTTPS 和部署验收。了解免费额度与维护边界。">
+  <meta name="theme-color" content="#f7f5ef">
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="用 AI 和 Cloudflare 免费方案搭建轻量网站">
+  <meta property="og:description" content="从通用建站 Skill 到页面、域名和部署：一份可复用的轻量网站工作流程。">
+  <meta property="og:url" content="https://huacao59109.github.io/cloudflare-free-site/guide/">
+  <link rel="canonical" href="https://huacao59109.github.io/cloudflare-free-site/guide/">
+  <link rel="icon" href="../assets/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../assets/site.css">
+  <script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"用 AI 和 Cloudflare 免费方案搭建轻量网站","description":"从通用 AI 建站 Skill 到页面开发、免费域名、Cloudflare Workers 与部署验收。","datePublished":"2026-11-07","dateModified":"2026-11-07","author":{"@type":"Person","name":"huacao59109","url":"https://github.com/huacao59109"},"mainEntityOfPage":"https://huacao59109.github.io/cloudflare-free-site/guide/","inLanguage":"zh-CN"}</script>
+</head>
+<body>
+  <a class="skip" href="#main">跳到正文</a>
+  <header class="site-header wrap"><a class="brand" href="../"><img src="../assets/favicon.svg" width="34" height="34" alt=""><span>Cloudflare <b>Free Site</b></span></a><nav aria-label="主导航"><a href="../#approach">工作方式</a><a href="../#start">开始使用</a><a href="./" aria-current="page">部署指南</a><a class="nav-github" href="https://github.com/huacao59109/cloudflare-free-site">GitHub ↗</a></nav></header>
+  <main id="main" class="wrap"><header class="article-head"><p class="eyebrow">GUIDE / 从需求到上线</p><h1>用 AI 和 Cloudflare 免费方案<br>搭建一个轻量网站</h1><p class="lead">把页面开发、域名配置和部署维护整理成可重复的流程。下面介绍 Cloudflare Free Site 的用法，以及选择免费方案时需要确认的边界。</p><p class="article-meta">huacao59109 · 2026-11-07 · 项目使用指南</p></header><div class="article-layout"><article class="prose">
+    <h2 id="why">为什么整理这个 Skill</h2>
+    <p>我把一次轻量网站的实际开发和部署流程整理成了开源项目 <a href="https://github.com/huacao59109/cloudflare-free-site">cloudflare-free-site</a>。希望 AI 助手拿到需求后，能沿着明确的步骤完成页面、必要的动态功能、域名配置、发布和验收。</p>
+    <p>仓库主要由 <code>SKILL.md</code> 和参考文档组成，不包含一套固定成品网站。支持技能目录的工具可以按自己的规范安装；其他助手也可以直接读取这些文件。它不绑定某一家 AI 产品，实际执行能力取决于所用工具及账号授权。</p>
+    <h2 id="architecture">先决定网站需要哪些组件</h2>
+    <p>个人主页、作品集、产品介绍等展示型网站，可以从静态资源开始。需要处理表单或业务逻辑时增加 Worker API；只有确实需要持久保存数据时，再接入 D1。</p>
+    <pre><code>域名 → Cloudflare DNS / HTTPS
+                     ↓
+            Cloudflare Workers
+            ├─ Static Assets：HTML、CSS、JS、图片
+            ├─ Worker API：动态交互，按需添加
+            └─ D1：结构化数据，按需添加</code></pre>
+    <p>用户注册、登录和管理后台也是可选功能。一个没有用户系统需求的展示页，没有必要先建账号库。已有网站则优先复用原工程、稳定的数据 ID 和部署资源。</p>
+    <blockquote><p>Workers 是有执行限制的应用运行环境，不是传统 VPS。要运行任意服务器进程、安装现成的传统服务端软件，或执行大量耗时任务，需要另选适合的部署方案。</p></blockquote>
+    <h2 id="start">如何把 Skill 交给 AI 助手</h2>
+    <p>先克隆仓库：</p><pre><code>git clone https://github.com/huacao59109/cloudflare-free-site.git</code></pre>
+    <p>让助手先读取入口文件，再给出具体页面、内容和交互需求。例如：</p><pre><code>阅读 cloudflare-free-site/SKILL.md，帮我制作一个产品展示网站。
+需要首页、产品介绍和联系方式，风格简洁，适配手机。
+先完成本地可运行版本，再按免费域名与 Cloudflare 方案部署。
+已有资源优先复用，不开通付费服务。</code></pre>
+    <p>修改已有网站时，补充数据保留要求：</p><pre><code>按 cloudflare-free-site/SKILL.md，为现有网站增加内容管理功能。
+需要登录后编辑和保存；保留原有数据与账号，继续使用免费方案。
+发布前检查主要操作和权限，提供回滚方法。</code></pre>
+    <p>参考文档按任务读取：域名与额度、应用与部署、验证与维护。发布账号由使用者本人登录授权，密码和 API 凭据不应写进公开工程。</p>
+    <h2 id="domain">免费域名与自定义域名怎么接</h2>
+    <p>项目记录了一次 DNSHE <code>.us.ci</code> 免费名称与 Cloudflare 自定义域名成功结合的实践。它是一条当时跑通的路线，申请资格、可用名称以及 Cloudflare 是否接受接管，都需要在操作时核对。</p>
+    <p>配置顺序是：</p><ol><li>申请允许修改 NS 的免费名称；已有域名可以直接复用。</li><li>在自己的 Cloudflare 账号添加该名称，选择 Free 套餐。</li><li>将域名提供商的 NS 改为 Cloudflare 为当前 Zone 实际分配的两条地址。</li><li>等待 Zone 激活，再在目标 Worker 中添加 Custom Domain。</li><li>确认 HTTPS 证书可用，分别验证页面与动态接口。</li></ol>
+    <p>不要复制别人案例中的 NS、账号 ID 或数据库 ID。域名注册成功也不等于网站已经可用：NS 委派、DNSSEC 验证、证书和应用路由需要分别检查。Worker Custom Domain 由 Cloudflare 管理对应解析与证书，不能仅把名称 CNAME 到 <code>workers.dev</code> 就视为绑定完成。</p>
+    <p>截至 2026-11-07，DNSHE 官方说明基础免费名称默认有效期为一年，可在到期前 180 天内免费续期。具体到期时间与续期条件以账号页面为准。参考：<a href="https://www.dnshe.com/">DNSHE 官方说明</a>、<a href="https://developers.cloudflare.com/workers/configuration/routing/custom-domains/">Worker Custom Domains 文档</a>。</p>
+    <h2 id="budget">免费额度怎样理解</h2>
+    <p>下面是 2026-11-07 核对的主要额度。它们是规划依据，实施时仍应查看最新官方文档。</p>
+    <table><thead><tr><th scope="col">资源</th><th scope="col">免费方案主要边界</th></tr></thead><tbody><tr><td>Workers 静态资源</td><td>静态资源请求免费；仍有资产文件等限制</td></tr><tr><td>Workers 动态请求</td><td>每天 100,000 次，CPU 时间等限制另计</td></tr><tr><td>D1 读取</td><td>每天 500 万行</td></tr><tr><td>D1 写入</td><td>每天 10 万行</td></tr><tr><td>D1 存储</td><td>账号总计 5 GB；免费单库最大 500 MB</td></tr></tbody></table>
+    <p>D1 的“行数”不是访问人数。一条查询可能扫描很多行，写入索引和清理旧数据也会消耗额度。让静态内容直接走 Assets，给动态查询使用合适索引，并监测真实用量，比只看每天访问人数更有用。</p>
+    <p>来源：<a href="https://developers.cloudflare.com/workers/platform/pricing/">Workers 定价</a>、<a href="https://developers.cloudflare.com/d1/platform/pricing/">D1 定价</a>、<a href="https://developers.cloudflare.com/d1/platform/limits/">D1 限制</a>。</p>
+    <p>这里的“免费”指满足域名规则及平台额度时，域名和应用托管可以为 0 元。AI 工具、邮件、短信或其他第三方服务的费用需单独核算。</p>
+    <h2 id="verify">发布以后还要验收什么</h2>
+    <p>除了首页能打开，还要检查手机布局、表单、数据保存以及已有功能。如果有账号系统，应确认匿名和普通用户无法调用管理接口，刷新后会话行为正常，发布新代码不会重灌示例或覆盖现有数据。</p>
+    <p>国内访问需要在关闭代理的真实宽带和手机流量下测试。曾经某个自定义域名可用，只能说明当时的网络情况；域名后缀不能保证机房所在地、访问速度或未来稳定性。</p>
+    <p>日常更新应记录发布版本、保留数据库与登录密钥，并准备回滚步骤。源码仓库不能替代数据备份，备份也不应提交到公开仓库。</p>
+    <div class="article-end"><p><strong>项目入口</strong></p><p><a href="https://github.com/huacao59109/cloudflare-free-site">GitHub：huacao59109/cloudflare-free-site</a><br><a href="../">Cloudflare Free Site 项目首页</a></p><p>项目采用 MIT 许可证。欢迎通过 Issue 或 Pull Request 补充可复现的改进；平台规则变化时，请附官方来源和核对日期。</p></div>
+  </article><aside class="article-aside"><p class="eyebrow">本页目录</p><nav aria-label="文章目录"><a href="#why">为什么整理这个 Skill</a><a href="#architecture">选择架构</a><a href="#start">开始使用</a><a href="#domain">配置免费域名</a><a href="#budget">理解免费额度</a><a href="#verify">发布后的验收</a></nav><a class="text-link" href="https://github.com/huacao59109/cloudflare-free-site">查看 GitHub 仓库 ↗</a></aside></div></main>
+  <footer class="site-footer wrap"><span>Cloudflare Free Site <i>© 2026 huacao59109</i></span><nav aria-label="页脚"><a href="../">项目首页</a><a href="https://github.com/huacao59109/cloudflare-free-site/issues">反馈</a><a href="https://github.com/huacao59109/cloudflare-free-site/blob/main/LICENSE">MIT License</a></nav><p>独立开源项目，与 Cloudflare 无隶属关系。本介绍页托管于 GitHub Pages。</p></footer>
+</body>
+</html>

@@ -1,5 +1,7 @@
 # Cloudflare Free Site：AI 免费建站 Skill（Cloudflare Workers + 免费域名）
 
+[项目介绍页](https://huacao59109.github.io/cloudflare-free-site/) · [使用与部署指南](https://huacao59109.github.io/cloudflare-free-site/guide/)
+
 **Cloudflare Free Site** 是一套面向 AI Agent 和 AI 编程助手的中文建站 Skill，帮助用户使用免费域名与 Cloudflare Workers 创建、部署和维护个人网站及轻量 Web 应用。
 
 *An AI agent skill for building, deploying, and maintaining websites with Cloudflare Workers and free-domain options.*
