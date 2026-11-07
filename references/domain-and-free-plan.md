@@ -55,9 +55,9 @@
 
 来源：[Workers 定价](https://developers.cloudflare.com/workers/platform/pricing/)、[Static Assets 计费](https://developers.cloudflare.com/workers/static-assets/billing-and-limitations/)、[D1 定价](https://developers.cloudflare.com/d1/platform/pricing/)、[D1 限制](https://developers.cloudflare.com/d1/platform/limits/)。
 
-让公开静态文件直接由 Assets 提供，`run_worker_first` 只覆盖必要接口路径，例如 `/api/*`。由 Worker 读取 D1 图片的接口即使命中 Worker 内的缓存，仍可能消耗动态请求额度，不能归类为免费的静态资产请求。
+让公开静态资源直接由 Assets 提供，只将必要请求交给 Worker。动态请求即使命中应用缓存，仍可能消耗 Worker 额度，不能直接归类为免费的静态资产请求。
 
-成本表达用「在免费额度和域名有效期内，域名及应用托管可以为 0 元」，不要承诺永久无限。外部存储、邮件、短信等服务若有需要，单独核对开通条件与费用。R2 是另一项产品，“有免费额度”不等于无需确认就可启用；纯静态站不需要为了套用架构增加存储产品。
+成本表达用「在免费额度和域名有效期内，域名及应用托管可以为 0 元」，不要承诺永久无限。额外服务单独核对开通条件与费用，不为了套用架构增加产品。
 
 ## 国内可用性
 
