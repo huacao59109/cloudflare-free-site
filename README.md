@@ -1,88 +1,76 @@
-# Cloudflare 免费建站 Skill
+# Cloudflare 通用建站 Skill
 
-面向 Codex 的中文技能：把免费域名、Cloudflare Workers、D1 和网盘组合成轻量网站，支持按需实现本站注册登录、登录后查看下载链接和管理后台。
+一套面向 AI 助手的中文建站技能，覆盖需求整理、页面开发、动态功能、部署和维护。默认使用免费域名与 Cloudflare 托管，适合个人网站、产品展示、信息发布、表单和轻量应用。
 
-方案来自一次实际部署，包含操作流程、实现取舍和验证结果。公开版本已移除个人本机路径、实际站点域名及账号专属信息。
+不依赖特定 AI 产品、编辑器或专用工具。仓库提供建站流程和实践参考，不是开箱即用的网站模板。
 
-## 方案
+## 按需组合
 
 ```text
-DNSHE 免费域名（已验证 .us.ci 路线）
-                 │ NS 委派 / HTTPS / Custom Domain
-                 ▼
+已有域名 / 可委派 NS 的免费名称
+              │ DNS / HTTPS / Custom Domain
+              ▼
 Cloudflare Workers Free
-├── Static Assets：公开页面、登录页、后台界面
-├── /api/*：本站认证、下载权限、内容管理
-└── D1：用户、会话、作品资料、私有链接、压缩封面
+├── Static Assets：页面、样式、脚本、图片
+├── Worker API：表单、动态内容、业务逻辑（可选）
+└── D1：需要持久保存的数据（可选）
 
-漫画整本等大文件 → 用户选择的网盘
+按需求增加：用户登录、管理后台、上传、外部文件存储
 ```
 
-按任务选用组件：纯静态展示站不必创建账号库或后台。Workers 是无服务器应用托管，不是可直接安装 WordPress 的 VPS。
+纯展示网站只需静态资源。需要动态功能时再增加接口和数据存储；已有站点优先复用原工程。Workers 是无服务器应用托管，不是可以直接安装任意服务器软件的 VPS。
 
 ## 包含内容
 
-- 免费域名的申请条件、续期、NS 委派、证书与 Custom Domain 绑定。
-- Workers / D1 免费额度，以及国内网络访问的验证方法。
-- 账号和管理权限、保护网盘链接、保存后生效的数据设计。
-- 浏览器端封面压缩、小图片存 D1、数据迁移与部署打包。
-- 已验证案例及其适用边界。
+- 从页面、内容和交互需求开始，选择适当的技术方案。
+- 免费域名申请条件、续期、NS 委派、HTTPS 与自定义域名绑定。
+- 响应式界面、表单、数据持久化及按需添加的账号和后台。
+- 图片和文件存储取舍、权限保护、数据迁移与发布。
+- 免费额度、真实网络验证、回滚和后续维护。
 
-## 安装
+## 使用方式
 
-将仓库放到 Codex 的 `skills/cloudflare-free-site` 目录。目标目录已有同名技能时，先比较版本，不要直接覆盖本地修改。
-
-macOS / Linux：
+下载仓库，或在任意工作目录执行：
 
 ```sh
-git clone https://github.com/huacao59109/cloudflare-free-site.git "${CODEX_HOME:-$HOME/.codex}/skills/cloudflare-free-site"
+git clone https://github.com/huacao59109/cloudflare-free-site.git
 ```
 
-Windows PowerShell：
+支持 `SKILL.md` 技能目录的工具，可按该工具的安装说明放置整个目录；已有同名目录时先比较本地修改。其他 AI 助手可直接读取 `SKILL.md`，再按任务读取其引用文件。是否自动发现技能取决于使用的工具。
 
-```powershell
-$skillRoot = if ($env:CODEX_HOME) {
-    Join-Path $env:CODEX_HOME 'skills'
-} else {
-    Join-Path $env:USERPROFILE '.codex\skills'
-}
-New-Item -ItemType Directory -Force -Path $skillRoot | Out-Null
-git clone https://github.com/huacao59109/cloudflare-free-site.git (Join-Path $skillRoot 'cloudflare-free-site')
-```
-
-安装后在新对话中调用：
+示例：
 
 ```text
-使用 $cloudflare-free-site，按免费域名与 Cloudflare 方案搭建作品展示站。
-需要网站自己的注册登录，登录后才能查看网盘下载链接。
+阅读 cloudflare-free-site/SKILL.md，帮我制作一个产品展示网站。
+需要首页、产品介绍和联系方式，风格简洁，适配手机。
+先完成本地版本，再按免费域名与 Cloudflare 方案部署。
 ```
-
-也可以用于已有网站的维护：
 
 ```text
-使用 $cloudflare-free-site，为现有网站增加内容管理后台。
-保留原账号、数据库和登录密钥，继续使用免费方案。
+按 cloudflare-free-site/SKILL.md，为现有网站增加内容管理功能。
+需要登录后编辑和保存；保留原有数据与账号，继续使用免费方案。
 ```
+
+没有终端或部署权限的助手仍可生成工程和操作步骤，实际发布需要具备相应工具及账号授权。
 
 ## 文件
 
 | 文件 | 用途 |
 | --- | --- |
-| [SKILL.md](SKILL.md) | 技能入口与工作流程 |
-| [agents/openai.yaml](agents/openai.yaml) | Codex 展示信息与调用提示 |
+| [SKILL.md](SKILL.md) | 技能入口、架构选择与工作流程 |
 | [domain-and-free-plan.md](references/domain-and-free-plan.md) | 域名、DNS、HTTPS 与免费额度 |
-| [app-and-deployment.md](references/app-and-deployment.md) | 应用、权限、后台、存储与发布 |
-| [verified-case.md](references/verified-case.md) | 已验证案例与实测边界 |
+| [app-and-deployment.md](references/app-and-deployment.md) | 页面、动态功能、存储与发布 |
+| [validation-and-maintenance.md](references/validation-and-maintenance.md) | 验收、实践边界、维护与回滚 |
 
-## 使用条件
+## 免费方案的边界
 
-免费资格、域名续期和平台额度会变化。参考资料标注了核对日期及官方来源，实际部署前应重新核对。域名和托管在满足免费条件时可以零成本，网盘容量或会员费用另计。
+DNSHE 的 `.us.ci` 免费名称与 Cloudflare 自定义域名路线已有实际部署验证。免费资格、后缀、续期规则和平台额度会变化，使用前应重新核对官方资料；参考文件附有来源和核对日期。
 
-国内访问需要在实际宽带、手机流量环境下验证；一次成功不代表所有地区或未来时间都可用。技能不会自动开通付费套餐，部署时使用你自己的账号和授权。
+满足免费条件且用量未超限时，域名与应用托管可以为 0 元。外部存储、邮件、短信等服务按实际选择另算，不默认开通。国内访问需要使用实际宽带和手机网络验证，一次成功不代表所有地区或未来时间都可用。
 
 ## 贡献
 
-欢迎通过 Issue 或 Pull Request 补充官方规则变化与可复现的验证结果。涉及额度或域名规则时，请附官方链接和核对日期；不要提交令牌、数据库备份、账号凭据或个人本机路径。
+欢迎通过 Issue 或 Pull Request 补充可复现的改进。平台规则或额度变更请附官方链接和核对日期；不要提交凭据、数据库备份或账号专属配置。
 
 ## 许可证
 
