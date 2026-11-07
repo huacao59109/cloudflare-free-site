@@ -92,14 +92,6 @@ git clone https://github.com/huacao59109/cloudflare-free-site.git
 
 Cloudflare Free Site is a Chinese-language AI agent skill for building and deploying personal websites and lightweight web applications. It guides an AI assistant through requirements, responsive front-end development, free-domain setup, Cloudflare Workers deployment, optional Worker APIs and D1 storage, validation, and maintenance. It is tool-agnostic and designed to add dynamic features only when needed.
 
-## 打赏支持
-
-如果这个项目对你有帮助，欢迎自愿打赏。
-
-| 微信 | 支付宝 |
-| :---: | :---: |
-| <img src="assets/donate/wechat.png" width="180" alt="微信打赏二维码"> | <img src="assets/donate/alipay.png" width="180" alt="支付宝打赏二维码"> |
-
 ## 贡献
 
 欢迎通过 Issue 或 Pull Request 提交可复现的改进。涉及平台规则或额度变化时，请附官方链接和核对日期。请勿提交凭据、数据库备份或账号专属配置。
@@ -107,3 +99,11 @@ Cloudflare Free Site is a Chinese-language AI agent skill for building and deplo
 ## 许可证
 
 [MIT](LICENSE) © 2026 huacao59109
+
+## 打赏支持
+
+如果这个项目对你有帮助，欢迎自愿打赏。
+
+| 微信 | 支付宝 |
+| :---: | :---: |
+| <img src="assets/donate/wechat.png" width="180" alt="微信打赏二维码"> | <img src="assets/donate/alipay.png" width="180" alt="支付宝打赏二维码"> |
