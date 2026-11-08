@@ -26,6 +26,7 @@
 - **动态功能：** 按需添加 Worker API、表单处理和动态内容。
 - **数据存储：** 需要持久化时接入 Cloudflare D1。
 - **账号与后台：** 按实际需求实现身份验证、权限控制和管理功能。
+- **搜索收录：** 按需完善独立网址、可抓取内容、网站地图与站长平台提交，保留原有权限边界。
 - **部署与维护：** 完成本地检查、发布、线上验证、版本更新和回滚。
 
 ## 推荐架构
@@ -81,6 +82,7 @@ git clone https://github.com/huacao59109/cloudflare-free-site.git
 | [domain-and-free-plan.md](references/domain-and-free-plan.md) | 免费域名、DNS、HTTPS、Cloudflare 免费额度与国内访问 |
 | [app-and-deployment.md](references/app-and-deployment.md) | 页面开发、动态功能、数据存储与部署 |
 | [validation-and-maintenance.md](references/validation-and-maintenance.md) | 验收、维护、版本更新与回滚 |
+| [search-and-discovery.md](references/search-and-discovery.md) | 可抓取页面、路由迁移、网站地图与 Google / 必应 / 百度提交 |
 
 ## 免费方案与使用边界
 
